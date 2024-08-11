@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const connection = require('./connection');
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 // Insert location with provided data
 app.post('/insert-location', (req, res) => {
@@ -71,6 +73,6 @@ function insertQuery(latitude, longitude, accuracy) {
 }
 
 // Start the server
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server running');
 });
