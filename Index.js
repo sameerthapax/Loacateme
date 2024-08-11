@@ -1,17 +1,19 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const connection = require('./connection');
 
-app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.json());
 
 // Insert location with provided data
 app.post('/insert-location', (req, res) => {
     const { latitude, longitude, accuracy } = req.body;
-    insertQuery(latitude, longitude, accuracy);
-    res.send('Location inserted successfully');
-});
+    if (latitude !== undefined && longitude !== undefined && accuracy !== undefined) {
+        insertQuery(latitude, longitude, accuracy);
+        res.send('Location inserted successfully');
+    } else {
+        res.status(400).send('Invalid request data');
+    }
+})
 
 // Insert ghost mode data (0,0,0)
 app.post('/ghost-mode', (req, res) => {
