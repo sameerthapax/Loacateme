@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location GUI</title>
+</head>
+<body>
+<h1>Location Insertion GUI</h1>
+<button id="get-location">Get Location and Insert</button>
+<button id="ghost-mode">Ghost Mode</button>
+
+<script>
+    document.getElementById('get-location').addEventListener('click', () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+
+            fetch('/insert-location', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ latitude, longitude, accuracy })
+            })
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }, (error) => {
+            console.error('Error getting location:', error.message);
+        });
+    });
+
+    document.getElementById('ghost-mode').addEventListener('click', () => {
+        fetch('/ghost-mode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
