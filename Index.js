@@ -19,6 +19,22 @@ app.post('/ghost-mode', (req, res) => {
     res.send('Ghost mode activated');
 });
 
+// Get the last inserted location data
+app.get('/last-location', (req, res) => {
+    connection.query('SELECT * FROM loctions ORDER BY id DESC LIMIT 1', (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err.stack);
+            res.status(500).send('Error retrieving data');
+            return;
+        }
+        if (results.length > 0) {
+            res.json(results[0]);
+        } else {
+            res.status(404).send('No data found');
+        }
+    });
+});
+
 // Insert query function
 function insertQuery(latitude, longitude, accuracy) {
     const locationData = {

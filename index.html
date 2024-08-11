@@ -17,7 +17,7 @@
             const longitude = position.coords.longitude;
             const accuracy = position.coords.accuracy;
 
-            fetch('/insert-location', {
+            fetch('http://localhost:3000/insert-location', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,7 +33,7 @@
     });
 
     document.getElementById('ghost-mode').addEventListener('click', () => {
-        fetch('/ghost-mode', {
+        fetch('http://localhost:3000/ghost-mode', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
