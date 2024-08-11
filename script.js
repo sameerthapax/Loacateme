@@ -1,4 +1,3 @@
-const serverUrl = 'https://loacateme.onrender.com'; // Replace with your live server's URL
 
 // Handle "Get Location and Insert" button click
 document.getElementById('get-location').addEventListener('click', () => {
@@ -7,7 +6,7 @@ document.getElementById('get-location').addEventListener('click', () => {
         const longitude = position.coords.longitude;
         const accuracy = position.coords.accuracy;
 
-        fetch(`${serverUrl}/insert-location`, {
+        fetch(`/insert-location`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +27,7 @@ document.getElementById('get-location').addEventListener('click', () => {
 
 // Handle "Ghost Mode" button click
 document.getElementById('ghost-mode').addEventListener('click', () => {
-    fetch(`${serverUrl}/ghost-mode`, {
+    fetch(`/ghost-mode`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -45,7 +44,7 @@ document.getElementById('ghost-mode').addEventListener('click', () => {
 
 // Handle "View All Locations" button click
 document.getElementById('view-all').addEventListener('click', () => {
-    fetch(`${serverUrl}/view-all`,{
+    fetch(`/view-all`,{
         method: 'GET',
     })
         .then(response => response.json())
