@@ -36,7 +36,16 @@ app.get('/last-location', (req, res) => {
         }
     });
 });
-
+app.get('/view-all', (req, res) => {
+    connection.query('SELECT * FROM loctions', (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err.stack);
+            res.status(500).send('Error retrieving data');
+            return;
+        }
+        res.json(results);  // Send all records as JSON response
+    });
+});
 // Insert query function
 function insertQuery(latitude, longitude, accuracy) {
     const locationData = {
